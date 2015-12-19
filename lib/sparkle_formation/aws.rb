@@ -67,14 +67,8 @@ class SparkleFormation
       # @return [String, NilClass]
       def registry_key(key)
         key = key.to_s.tr('_', '')
-        @@registry.keys.detect do |ref|
-          ref = ref.downcase
-          snake_parts = ref.split('::')
-          until(snake_parts.empty?)
-            break if snake_parts.join('') == key
-            snake_parts.shift
-          end
-          !snake_parts.empty?
+        @@registry.detect do |ref, info|
+          break ref if info[:snaked].include? key
         end
       end
 

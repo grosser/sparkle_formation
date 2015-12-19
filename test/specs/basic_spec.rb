@@ -122,6 +122,22 @@ describe SparkleFormation do
       e.message.must_equal "111"
     end
 
+    require 'benchmark'
+
+    it 'should call xxxxx' do
+      SparkleFormation.new(:dummy) do
+        test 111
+      end.dump
+
+      SparkleFormation::Aws.registry
+      r = Benchmark.realtime do
+        10000.times {
+          SparkleFormation::Aws.registry_key :nope
+        }
+      end
+      puts "R #{r}"
+    end
+
   end
 
 end

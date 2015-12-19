@@ -4607,3 +4607,11 @@ AWS_RESOURCES = {"AWS::OpsWorks::App"=>
        :update_causes=>:unavailable}},
    :path=>"aws-properties-elasticache-security-group-ingress.html"},
  "AWS::SDB::Domain"=>{:properties=>[], :path=>"aws-properties-simpledb.html"}}
+
+AWS_RESOURCES.each do |k, v|
+  snaked = k.downcase.split('::')
+  snaked.size.times do |i|
+    snaked[i] = snaked.slice(i, 3).join('')
+  end
+  v[:snaked] = Set.new(snaked)
+end
